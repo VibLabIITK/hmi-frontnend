@@ -108,11 +108,12 @@ const LoginPage=({navigation})=> {
 
   let handleSubmit = async () => {
 
-      fetch("http://hmi-api.herokuapp.com/api/login", {
+      fetch("http://hmi-api.onrender.com/api/login", {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain, */*',  // It can be used to overcome cors errors
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          "Access-Control-Allow-Origin": "*"
         },
         body: JSON.stringify({
           "firstname": FirstName,

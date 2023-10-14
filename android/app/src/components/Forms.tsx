@@ -159,7 +159,7 @@ const Form = ({ navigation }) => {
   const [datetime, setDatetime] = useState("Add Date and Time")
   let handleSubmit = async (e) => {
 
-    fetch("http://hmi-api.herokuapp.com/api/log", {
+    fetch("http://hmi-api.onrender.com/api/log", {
       method: "POST",
       headers: {
         'Accept': 'application/json, text/plain, */*',  // It can be used to overcome cors errors

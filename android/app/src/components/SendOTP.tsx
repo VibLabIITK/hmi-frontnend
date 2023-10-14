@@ -113,36 +113,40 @@ const SizedBox: React.FC<Props> = ({ height, width }) => {
   return <View style={{ height, width }} />;
 };
 
-const LoginPage=({navigation})=> {
+const OTPPage=({navigation})=> {
 
 
   const [otp, setotp] = useState("");
   const [message, setMessage] = useState("");
 
   let handleSubmit = async (e) => {
-
-    fetch("http://hmi-api.herokuapp.com/api/otp", {
+    try{
+    const response=fetch("http://hmi-api.onrender.com/api/otp", {
+      mode:'no-cors',
       method: "POST",
       headers: {
         'Accept': 'application/json, text/plain, */*',  // It can be used to overcome cors errors
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify({
         otp:otp
       }),
     })
-      .then((response) => response.json())
-      .then((responseData) => {
+      // .then((response) => response.text())
+      const json=(await response).text();
+
         console.log('Fetch Success==================');
-        console.log(responseData);
-        if(responseData["success"]){
+        console.log(json);
+        if(json["success"]){
           setMessage(`Account Verified Successfully ! Click here to proceed to Login Page.`)        }
         else{
           setMessage("Account not Verified.")
         }
         setotp("")
-      })
-      .catch((error) => console.log(error))
+      }
+
+      catch{((error) => console.log(error))}
   }
 
   return (
@@ -177,6 +181,6 @@ const LoginPage=({navigation})=> {
   );
 };
 
-export default LoginPage;
+export default OTPPage;
 
 

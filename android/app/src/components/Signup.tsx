@@ -113,13 +113,15 @@ const Signup=({navigation})=> {
     const [message, setMessage] = useState("");
 
 
-    let handleSubmit = async (e) => {
+    let handleSubmit = async () => {
 
-        fetch("http://hmi-api.herokuapp.com/api/signup", {
+        fetch("http://hmi-api.onrender.com/api/signup", {
+          mode:'no-cors',
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain, */*',  // It can be used to overcome cors errors
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
           },
           body: JSON.stringify({
             firstname: FirstName,
@@ -129,7 +131,7 @@ const Signup=({navigation})=> {
             email: EmailId
           }),
         })
-          .then((response) => response.json())
+          .then((response) => response.text())
           .then((responseData) => {
             console.log('Fetch Success==================');
             console.log(responseData);
